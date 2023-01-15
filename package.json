@@ -10,12 +10,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "node-fetch": "^2.6.1"
+    "dotenv": "^16.0.3"
   },
   "dependencies": {
     "@netlify/functions": "^1.4.0",
-    "dotenv": "^16.0.3",
+    "node-fetch": "^2.6.1",
+    "cheerio": "^1.0.0-rc.12",
     "twilio": "^3.84.0"
   }
 }
