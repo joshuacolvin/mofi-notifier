@@ -1,10 +1,8 @@
-const dotenv = require("dotenv");
+require("dotenv").config;
 const fetch = require("node-fetch");
 const twilio = require("twilio");
 const cheerio = require("cheerio");
 const fns = require("@netlify/functions");
-
-dotenv.config();
 
 const parse = (content, $) => {
   let result = "\n-------------\nIN STOCK MOFI\n-------------\n";
