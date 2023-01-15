@@ -1,5 +1,6 @@
 import twilio from "twilio";
 import cheerio from "cheerio";
+import fetch from "node-fetch";
 import { schedule } from "@netlify/functions";
 
 const parse = (content, $) => {
@@ -52,8 +53,7 @@ const handler = async function (event, context) {
 
   return {
     statusCode: 200,
-    body: "sent",
   };
 };
 
-exports.handler = schedule("30 18 * * *", handler);
+exports.handler = schedule("16 19 * * *", handler);

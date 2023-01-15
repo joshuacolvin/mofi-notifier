@@ -12,6 +12,7 @@
   "dependencies": {
     "@netlify/functions": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^3.3.0",
     "twilio": "^3.84.0"
   }
 }

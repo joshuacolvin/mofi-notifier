@@ -1,2 +1,2 @@
 [functions]
-  external_node_modules = ["cheerio", "twilio"]
+  node_bundler = "esbuild"
