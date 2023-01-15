@@ -1,6 +1,6 @@
-const twilio = require("twilio");
-const cheerio = require("cheerio");
-const fns = require("@netlify/functions");
+import twilio from "twilio";
+import cheerio from "cheerio";
+import { schedule } from "@netlify/functions";
 
 const parse = (content, $) => {
   let result = "\n-------------\nIN STOCK MOFI\n-------------\n";
@@ -56,4 +56,4 @@ const handler = async function (event, context) {
   };
 };
 
-exports.handler = fns.schedule("30 12 * * *", handler);
+exports.handler = schedule("30 12 * * *", handler);
