@@ -41,12 +41,12 @@ const {
   TWILIO_AUTH_TOKEN,
 } = process.env;
 
-// const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-// client.messages
-//   .create({
-//     body: result,
-//     to: TO_PHONE_NUMBER,
-//     from: FROM_PHONE_NUMBER,
-//   })
-//   .then((message) => console.log(message.sid));
+client.messages
+  .create({
+    body: result,
+    to: TO_PHONE_NUMBER,
+    from: FROM_PHONE_NUMBER,
+  })
+  .then((message) => console.log(message.sid));

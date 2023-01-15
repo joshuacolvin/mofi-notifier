@@ -1,17 +1,17 @@
-import * as dotenv from "dotenv";
-import fetch from "node-fetch";
-import twilio from "twilio";
-import { load } from "cheerio";
-import { schedule } from "@netlify/functions";
+const dotenv = require("dotenv");
+const fetch = require("node-fetch");
+const twilio = require("twilio");
+const cheerio = require("cheerio");
+const fns = require("@netlify/functions");
 
 dotenv.config();
 
-const parse = (content) => {
+const parse = (content, $) => {
   let result = "\n-------------\nIN STOCK MOFI\n-------------\n";
 
   for (let i = 0; i < content.length; i++) {
     const text = $(content[i]).text();
-    const title = text.split("-")[1].trim();
+    const title = text.split("-")[1].trim().toLowerCase();
 
     if (FILTERS.ALBUMS.includes(title)) {
       continue;
@@ -23,7 +23,12 @@ const parse = (content) => {
 };
 
 const FILTERS = {
-  ALBUMS: ["Milestones", "Sketches of Spain", "A Tribute to Jack Johnson"],
+  ALBUMS: [
+    "milestones",
+    "sketches of spain",
+    "a tribute to jack johnson",
+    "in a silent way",
+  ],
 };
 
 const handler = async function (event, context) {
@@ -31,9 +36,9 @@ const handler = async function (event, context) {
     "https://mofi.com/collections/back-in-stock/vinyl"
   );
   const body = await response.text();
-  const $ = load(body);
+  const $ = cheerio.load(body);
   const items = $(".product-item__title a");
-  const result = parse(items);
+  const parsed = parse(items, $);
   const {
     FROM_PHONE_NUMBER,
     TO_PHONE_NUMBER,
@@ -43,15 +48,16 @@ const handler = async function (event, context) {
 
   const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-  await client.messages.create({
-    body: result,
+  const result = await client.messages.create({
+    body: parsed,
     to: TO_PHONE_NUMBER,
     from: FROM_PHONE_NUMBER,
   });
 
   return {
     statusCode: 200,
+    body: result.status,
   };
 };
 
-exports.handler = schedule("@daily", handler);
+exports.handler = fns.schedule("30 12 * * *", handler);
