@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const twilio = require("twilio");
 const cheerio = require("cheerio");
 const fns = require("@netlify/functions");
