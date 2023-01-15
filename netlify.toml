@@ -1,2 +1,3 @@
 [functions]
+  external_node_modules = ["cheerio", "twilio", "node-fetch", "@netlify/functions"]
   node_bundler = "esbuild"
