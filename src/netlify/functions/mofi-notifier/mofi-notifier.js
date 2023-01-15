@@ -28,7 +28,7 @@ const FILTERS = {
   ],
 };
 
-const handler = async function (event, context) {
+const handler = schedule("45 19 * * *", async function (event, context) {
   const response = await fetch(
     "https://mofi.com/collections/back-in-stock/vinyl"
   );
@@ -54,6 +54,6 @@ const handler = async function (event, context) {
   return {
     statusCode: 200,
   };
-};
+});
 
-exports.handler = schedule("30 19 * * *", handler);
+export { handler };
