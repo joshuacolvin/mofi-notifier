@@ -45,7 +45,7 @@ const handler = async function (event, context) {
 
   const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-  const result = await client.messages.create({
+  await client.messages.create({
     body: parsed,
     to: TO_PHONE_NUMBER,
     from: FROM_PHONE_NUMBER,
@@ -53,7 +53,7 @@ const handler = async function (event, context) {
 
   return {
     statusCode: 200,
-    body: result.status,
+    body: "sent",
   };
 };
 
